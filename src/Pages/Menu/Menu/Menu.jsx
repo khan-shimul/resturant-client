@@ -5,17 +5,16 @@ import dessertBg from "../../../assets/menu/dessert-bg.jpeg";
 import pizzaBG from "../../../assets/menu/pizza-bg.jpg";
 import saladBg from "../../../assets/menu/salad-bg.jpg";
 import soupBg from "../../../assets/menu/soup-bg.jpg";
-import { useMenu } from "../../../hooks/useMenu";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import MenuCategory from "../MenuCategory/MenuCategory";
+import { useFilterMenu } from "../../../hooks/useFilterMenu";
 
 const Menu = () => {
-  const [menu] = useMenu();
-  const offered = menu.filter((item) => item.category === "offered");
-  const dessert = menu.filter((item) => item.category === "dessert");
-  const pizza = menu.filter((item) => item.category === "pizza");
-  const salad = menu.filter((item) => item.category === "salad");
-  const soup = menu.filter((item) => item.category === "soup");
+  const offered = useFilterMenu("offered");
+  const dessert = useFilterMenu("dessert");
+  const pizza = useFilterMenu("pizza");
+  const salad = useFilterMenu("salad");
+  const soup = useFilterMenu("soup");
   return (
     <div>
       <Helmet>
@@ -26,13 +25,13 @@ const Menu = () => {
       <SectionTitle heading="Today's Offer" subHeading="Don't Miss" />
       <MenuCategory items={offered} />
       {/* Dessert */}
-      <MenuCategory items={dessert} title="Desserts" img={dessertBg} />
+      <MenuCategory items={dessert} title="dessert" img={dessertBg} />
       {/* Pizza */}
-      <MenuCategory items={pizza} title="Pizza" img={pizzaBG} />
+      <MenuCategory items={pizza} title="pizza" img={pizzaBG} />
       {/* Salad */}
-      <MenuCategory items={salad} title="Salad" img={saladBg} />
+      <MenuCategory items={salad} title="salad" img={saladBg} />
       {/* Soup */}
-      <MenuCategory items={soup} title="Soup" img={soupBg} />
+      <MenuCategory items={soup} title="soup" img={soupBg} />
     </div>
   );
 };
