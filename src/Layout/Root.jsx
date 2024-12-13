@@ -4,7 +4,7 @@ import Navbar from "../Pages/Shared/Navbar/Navbar";
 
 const Root = () => {
   const location = useLocation();
-  const shouldHidePath = ["/login", "/register"];
+  const shouldHidePath = ["/login", "/signup"];
   const shouldHide = shouldHidePath.includes(location.pathname);
   return (
     <div>
