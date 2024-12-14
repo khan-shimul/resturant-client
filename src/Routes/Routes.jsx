@@ -23,11 +23,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/order/:category",
-        element: (
-          <ProtectRoute>
-            <Order />
-          </ProtectRoute>
-        ),
+        element: <Order />,
       },
       {
         path: "/login",

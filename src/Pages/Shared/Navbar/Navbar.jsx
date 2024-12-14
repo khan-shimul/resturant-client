@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { PiShoppingCartDuotone } from "react-icons/pi";
+import useCart from "../../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
+  const [cart] = useCart();
   const handleLogout = () => {
     logoutUser().then(() => {
       console.log("Logged Out");
@@ -20,6 +23,18 @@ const Navbar = () => {
       <li>
         <Link to="/order/salad">Order</Link>
       </li>
+      <li>
+        <Link to="/">
+          <button className="btn">
+            <PiShoppingCartDuotone />
+            <div className="badge badge-secondary">+{cart.length}</div>
+          </button>
+        </Link>
+      </li>
+      {/* {user && <p>User: {user.displayName}</p>} */}
+      {/* {user && (
+        <img style={{ height: "50px", width: "50px" }} src={user.photoURL} />
+      )} */}
     </>
   );
   return (
