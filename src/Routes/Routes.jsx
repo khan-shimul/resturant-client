@@ -6,6 +6,8 @@ import Order from "../Pages/Order/Order";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/signUp/signUp";
 import ProtectRoute from "./ProtectRoute";
+import Dashboard from "../Layout/Dashboard";
+import Cart from "../Pages/Dashboard/Cart/Cart";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +34,24 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path: "/dashboard",
+        element: (
+          <h3 className="text-center text-orange-500 text-3xl font-medium">
+            Welcome to Your Dashboard
+          </h3>
+        ),
+      },
+      {
+        path: "/dashboard/cart",
+        element: <Cart />,
       },
     ],
   },

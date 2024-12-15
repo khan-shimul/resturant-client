@@ -24,7 +24,7 @@ const Navbar = () => {
         <Link to="/order/salad">Order</Link>
       </li>
       <li>
-        <Link to="/">
+        <Link to="/dashboard">
           <button className="btn">
             <PiShoppingCartDuotone />
             <div className="badge badge-secondary">+{cart.length}</div>
