@@ -8,6 +8,7 @@ import SignUp from "../Pages/signUp/signUp";
 import ProtectRoute from "./ProtectRoute";
 import Dashboard from "../Layout/Dashboard";
 import Cart from "../Pages/Dashboard/Cart/Cart";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 
 export const router = createBrowserRouter([
   {
@@ -39,10 +40,28 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <ProtectRoute>
+        <Dashboard />
+      </ProtectRoute>
+    ),
     children: [
+      // Admin Routes
       {
-        path: "/dashboard",
+        path: "/dashboard/adminHome",
+        element: (
+          <h3 className="text-center text-orange-500 text-3xl font-medium">
+            Welcome to Admin Dashboard Dashboard
+          </h3>
+        ),
+      },
+      {
+        path: "/dashboard/users",
+        element: <AllUsers />,
+      },
+      // User Routes
+      {
+        path: "/dashboard/userHome",
         element: (
           <h3 className="text-center text-orange-500 text-3xl font-medium">
             Welcome to Your Dashboard

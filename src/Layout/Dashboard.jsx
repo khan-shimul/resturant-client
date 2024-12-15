@@ -1,9 +1,13 @@
 import {
   FaAd,
+  FaBook,
   FaCalendar,
   FaHome,
+  FaList,
   FaOldRepublic,
   FaStar,
+  FaUsers,
+  FaUtensils,
 } from "react-icons/fa";
 import { FaMarsAndVenus } from "react-icons/fa6";
 import { PiShoppingCartDuotone } from "react-icons/pi";
@@ -12,51 +16,102 @@ import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
   const [cart] = useCart();
+  // TODO: Get Admin from DB
+  const isAdmin = true;
+
   return (
     <div className="flex">
       <div className="w-64 min-h-screen bg-orange-400">
         <ul className="p-10">
-          <li className="mb-5">
-            <NavLink to="/dashboard">
-              <span className="flex items-center gap-3">
-                <FaHome />
-                User Home
-              </span>
-            </NavLink>
-          </li>
-          <li className="mb-5">
-            <NavLink to="/dashboard/reservation">
-              <span className="flex items-center gap-3">
-                <FaCalendar />
-                Reservation
-              </span>
-            </NavLink>
-          </li>
-          <li className="mb-5">
-            <NavLink to="/dashboard/cart">
-              <span className="flex items-center gap-3">
-                <PiShoppingCartDuotone />
-                My Cart ({cart.length})
-              </span>
-            </NavLink>
-          </li>
-          <li className="mb-5">
-            <NavLink to="/dashboard/cart">
-              <span className="flex items-center gap-3">
-                <FaAd />
-                My Bookings
-              </span>
-            </NavLink>
-          </li>
-          <li className="mb-5">
-            <NavLink to="/dashboard/cart">
-              <span className="flex items-center gap-3">
-                <FaStar />
-                Add Reviews
-              </span>
-            </NavLink>
-          </li>
+          {isAdmin ? (
+            <>
+              <li className="mb-5">
+                <NavLink to="/dashboard/adminHome">
+                  <span className="flex items-center gap-3">
+                    <FaHome />
+                    Admin Home
+                  </span>
+                </NavLink>
+              </li>
+              <li className="mb-5">
+                <NavLink to="/dashboard/addItems">
+                  <span className="flex items-center gap-3">
+                    <FaUtensils />
+                    Add Items
+                  </span>
+                </NavLink>
+              </li>
+              <li className="mb-5">
+                <NavLink to="/dashboard/mangeItems">
+                  <span className="flex items-center gap-3">
+                    <FaList />
+                    Manage Items
+                  </span>
+                </NavLink>
+              </li>
+              <li className="mb-5">
+                <NavLink to="/dashboard/manageBooking">
+                  <span className="flex items-center gap-3">
+                    <FaBook />
+                    Manage Bookings
+                  </span>
+                </NavLink>
+              </li>
+              <li className="mb-5">
+                <NavLink to="/dashboard/users">
+                  <span className="flex items-center gap-3">
+                    <FaUsers />
+                    All Users
+                  </span>
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="mb-5">
+                <NavLink to="/dashboard/userHome">
+                  <span className="flex items-center gap-3">
+                    <FaHome />
+                    User Home
+                  </span>
+                </NavLink>
+              </li>
+              <li className="mb-5">
+                <NavLink to="/dashboard/reservation">
+                  <span className="flex items-center gap-3">
+                    <FaCalendar />
+                    Reservation
+                  </span>
+                </NavLink>
+              </li>
+              <li className="mb-5">
+                <NavLink to="/dashboard/cart">
+                  <span className="flex items-center gap-3">
+                    <PiShoppingCartDuotone />
+                    My Cart ({cart.length})
+                  </span>
+                </NavLink>
+              </li>
+              <li className="mb-5">
+                <NavLink to="/dashboard/cart">
+                  <span className="flex items-center gap-3">
+                    <FaAd />
+                    My Bookings
+                  </span>
+                </NavLink>
+              </li>
+              <li className="mb-5">
+                <NavLink to="/dashboard/cart">
+                  <span className="flex items-center gap-3">
+                    <FaStar />
+                    Add Reviews
+                  </span>
+                </NavLink>
+              </li>
+            </>
+          )}
           <div className="divider"></div>
+          {/* Common nav links */}
           <li className="mb-5">
             <NavLink to="/">
               <span className="flex items-center gap-3">

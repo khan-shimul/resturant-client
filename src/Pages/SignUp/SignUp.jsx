@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const {
     register,
@@ -12,14 +16,30 @@ const SignUp = () => {
     reset,
     formState: { errors },
   } = useForm();
+
   const handleSignUp = (data) => {
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
-      console.log("Created user", loggedUser);
       updateUserProfile(data.name, data.photo).then(() => {
-        console.log("profile updated");
-        reset();
-        navigate("/");
+        // create user to db
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+        };
+        axiosPublic.post("/users", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            console.log("user saved to db");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Signup Success",
+              showConfirmButton: false,
+              timer: 2500,
+            });
+            reset();
+            navigate("/");
+          }
+        });
       });
     });
   };
@@ -127,6 +147,12 @@ const SignUp = () => {
               <button className="btn btn-primary">Sign Up</button>
             </div>
           </form>
+          <p className="px-8">
+            <small>
+              Already have an account? <Link to="/login">Login</Link>
+            </small>
+          </p>
+          <SocialLogin />
         </div>
       </div>
     </div>
