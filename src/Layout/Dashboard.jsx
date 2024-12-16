@@ -13,11 +13,11 @@ import { FaMarsAndVenus } from "react-icons/fa6";
 import { PiShoppingCartDuotone } from "react-icons/pi";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
   const [cart] = useCart();
-  // TODO: Get Admin from DB
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
 
   return (
     <div className="flex">
