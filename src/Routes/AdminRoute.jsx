@@ -9,7 +9,7 @@ const AdminRoute = ({ children }) => {
   if (loading || isAdminLoading)
     return <span className="loading loading-spinner text-error"></span>;
   if (user && isAdmin) return children;
-  return <Navigate to="/login" state={{ from: location }} replace />;
+  return <Navigate to="/" state={{ from: location }} replace />;
 };
 
 export default AdminRoute;
