@@ -9,6 +9,7 @@ import ProtectRoute from "./ProtectRoute";
 import Dashboard from "../Layout/Dashboard";
 import Cart from "../Pages/Dashboard/Cart/Cart";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -50,9 +51,11 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/adminHome",
         element: (
-          <h3 className="text-center text-orange-500 text-3xl font-medium">
-            Welcome to Admin Dashboard Dashboard
-          </h3>
+          <AdminRoute>
+            <h3 className="text-center text-orange-500 text-3xl font-medium">
+              Welcome to Admin Dashboard Dashboard
+            </h3>
+          </AdminRoute>
         ),
       },
       {
