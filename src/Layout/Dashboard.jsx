@@ -42,7 +42,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li className="mb-5">
-                <NavLink to="/dashboard/mangeItems">
+                <NavLink to="/dashboard/manageItems">
                   <span className="flex items-center gap-3">
                     <FaList />
                     Manage Items

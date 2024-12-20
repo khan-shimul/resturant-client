@@ -11,6 +11,9 @@ import Cart from "../Pages/Dashboard/Cart/Cart";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AdminRoute from "./AdminRoute";
 import AddItems from "../Pages/Dashboard/AddItems/AddItems";
+import ManageItems from "../Pages/Dashboard/ManageItems/ManageItems";
+import UpdateItem from "../Pages/Dashboard/UpdateItem/UpdateItem";
+import Payment from "../Pages/Dashboard/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -50,7 +53,7 @@ export const router = createBrowserRouter([
     children: [
       // Admin Routes
       {
-        path: "/dashboard/adminHome",
+        path: "adminHome",
         element: (
           <AdminRoute>
             <h3 className="text-center text-orange-500 text-3xl font-medium">
@@ -60,7 +63,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/addItems",
+        path: "addItems",
         element: (
           <AdminRoute>
             <AddItems />
@@ -68,12 +71,30 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/users",
+        path: "manageItems",
+        element: (
+          <AdminRoute>
+            <ManageItems />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "update/:id",
+        element: (
+          <AdminRoute>
+            <UpdateItem />
+          </AdminRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/menu/${params.id}`),
+      },
+      {
+        path: "users",
         element: <AllUsers />,
       },
       // User Routes
       {
-        path: "/dashboard/userHome",
+        path: "userHome",
         element: (
           <h3 className="text-center text-orange-500 text-3xl font-medium">
             Welcome to Your Dashboard
@@ -81,8 +102,12 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/cart",
+        path: "cart",
         element: <Cart />,
+      },
+      {
+        path: "payment",
+        element: <Payment />,
       },
     ],
   },

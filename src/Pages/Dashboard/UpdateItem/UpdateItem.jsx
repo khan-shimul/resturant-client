@@ -1,16 +1,16 @@
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import { FaUtensils } from "react-icons/fa";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { useLoaderData } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import Swal from "sweetalert2";
-import { useState } from "react";
+import { FaUtensils } from "react-icons/fa";
 import axios from "axios";
-
+import Swal from "sweetalert2";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-const AddItems = () => {
+const UpdateItem = () => {
+  const { name, _id, recipe, image, category, price } = useLoaderData();
   const { register, handleSubmit, reset } = useForm();
   // const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
@@ -26,22 +26,23 @@ const AddItems = () => {
     });
     if (res.data.success) {
       // send the menu data to database with img url
-      const menuItem = {
+      const updatedMenuItem = {
         name: data.name,
         category: data.category,
         recipe: data.recipe,
         price: parseFloat(data.price),
         image: res.data.data.display_url,
       };
-      const menuRes = await axiosSecure.post("/menu", menuItem);
+      // update data send to server
+      const menuRes = await axiosSecure.patch(`/menu/${_id}`, updatedMenuItem);
       console.log(menuRes.data);
-      if (menuRes.data.insertedId) {
+      if (menuRes.data.modifiedCount) {
         setLoading(false);
         reset();
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Menu Item Added Successfully",
+          title: "Menu Item Updated Successfully",
           showConfirmButton: false,
           timer: 2500,
         });
@@ -50,7 +51,7 @@ const AddItems = () => {
   };
   return (
     <div>
-      <SectionTitle heading="Add Recipe" subHeading="What's New?" />
+      <SectionTitle heading="Update an Item" subHeading="Refresh your item" />
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label className="form-control w-full my-6">
@@ -58,6 +59,7 @@ const AddItems = () => {
               <span className="label-text">Recipe Name*</span>
             </div>
             <input
+              defaultValue={name}
               {...register("name", { required: true })}
               type="text"
               placeholder="recipe name"
@@ -71,7 +73,7 @@ const AddItems = () => {
                   <span className="label-text">Category*</span>
                 </div>
                 <select
-                  defaultValue="default"
+                  defaultValue={category}
                   {...register("category", { required: true })}
                   className="select select-bordered w-full"
                 >
@@ -92,6 +94,7 @@ const AddItems = () => {
                   <span className="label-text">Price*</span>
                 </div>
                 <input
+                  defaultValue={price}
                   {...register("price", { required: true })}
                   type="number"
                   placeholder="recipe name"
@@ -105,6 +108,7 @@ const AddItems = () => {
               <span className="label-text">Recipe Details*</span>
             </div>
             <textarea
+              defaultValue={recipe}
               {...register("recipe", { required: true })}
               className="textarea textarea-bordered h-28"
               placeholder="recipe details"
@@ -112,6 +116,7 @@ const AddItems = () => {
           </label>
           <div className="mb-6">
             <input
+              // defaultValue={image}
               {...register("image", { required: true })}
               type="file"
               className="file-input w-full max-w-xs"
@@ -132,4 +137,4 @@ const AddItems = () => {
   );
 };
 
-export default AddItems;
+export default UpdateItem;
