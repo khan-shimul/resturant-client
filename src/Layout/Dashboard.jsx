@@ -77,10 +77,10 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li className="mb-5">
-                <NavLink to="/dashboard/reservation">
+                <NavLink to="/dashboard/paymentHistory">
                   <span className="flex items-center gap-3">
                     <FaCalendar />
-                    Reservation
+                    Payment History
                   </span>
                 </NavLink>
               </li>
