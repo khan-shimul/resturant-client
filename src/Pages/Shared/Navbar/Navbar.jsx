@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { PiShoppingCartDuotone } from "react-icons/pi";
 import useCart from "../../../hooks/useCart";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   const [cart] = useCart();
   const handleLogout = () => {
     logoutUser().then(() => {
@@ -23,6 +25,31 @@ const Navbar = () => {
       <li>
         <Link to="/order/salad">Order</Link>
       </li>
+      {/* nested Ternary operator */}
+      {/* firstCondition ? secondCondition ? 'double true' : 'one condition is true' : 'both condition are false */}
+      {/* {user ? (
+        isAdmin ? (
+          <li>
+            <Link to="/dashboard/adminHome">Admin Home</Link>
+          </li>
+        ) : (
+          <li>
+            <Link to="/dashboard/userHome">User Home</Link>
+          </li>
+        )
+      ) : (
+        "false"
+      )} */}
+      {user && isAdmin && (
+        <li>
+          <Link to="/dashboard/adminHome">Admin Home</Link>
+        </li>
+      )}
+      {user && !isAdmin && (
+        <li>
+          <Link to="/dashboard/userHome">User Home</Link>
+        </li>
+      )}
       <li>
         <Link to="/dashboard">
           <button className="btn">

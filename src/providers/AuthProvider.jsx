@@ -52,19 +52,19 @@ const AuthProvider = ({ children }) => {
   // observing the user
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log("Observing current user", user);
+      console.log("Observing current user", currentUser);
       setUser(currentUser);
       if (currentUser) {
         const userInfo = { email: currentUser.email };
         axiosPublic.post("/jwt", userInfo).then((res) => {
           console.log(res.data);
+          setLoading(false);
         });
       } else {
         axiosPublic.get("/logout").then((res) => {
           console.log("clear cookie", res.data);
         });
       }
-      setLoading(false);
     });
     return () => {
       return unsubscribe();

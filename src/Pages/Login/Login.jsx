@@ -13,7 +13,6 @@ const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const { loginUser } = useContext(AuthContext);
   const location = useLocation();
-  console.log(location);
   const navigate = useNavigate();
 
   useEffect(() => {
